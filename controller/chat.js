@@ -19,7 +19,7 @@ async function chatLogin(ctx,next){
   const avatar=getRandomAvatar() 
   /*设置cookie时间为一天 */
   ctx.cookies.set('user',
-  JSON.stringify({nickName,avatar}),{maxAge:24*60*60*1000})
+  JSON.stringify({nickName,avatar}),{maxAge:2*60*60*1000})
 
   if(nickName){
     // await ctx.redirect('/chat')
@@ -63,19 +63,37 @@ async function addContent(ctx,next){
 
   const {content}=ctx.request.body
 
-
+  // 从cookie获取user信息
   let user=ctx.cookies.get('user')
 
   if(user){
     const { nickName,avatar }=JSON.parse(user)
+
+    // 从cookies获取登录时保存的用户名和头像
     await services.addContent({nickName,avatar,content})
+
+    // 获取最新聊天记录
+    const contents=await services.getContent()
+
+    data={ status:'success',contents}
+
   }
-  ctx.response.body={status:'success'}
+  ctx.response.body=data
 }
+
+async function getContent(ctx,next){
+  const contents=await services.getContent()
+
+  ctx.response.body={
+    contents
+  }
+}
+
 
 module.exports={
   login,
   chatLogin,
   chat,
-  addContent
+  addContent,
+  getContent
 }

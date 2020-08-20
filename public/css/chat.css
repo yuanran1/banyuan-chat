@@ -1,102 +1,89 @@
-
 .chat-container{
-    height: 100vh;
+    /* height: 100vh; */
     margin: 0 auto;
     position: relative;
 }
-
 /* 用户名头部 */
 .chat-header{
-    height: 60px;
-    margin: 0 25;
-    border-bottom:2px solid palevioletred;
-    line-height: 60px;
-    font-size: 30px;
-    color: plum;
+    height: 94px;
+    margin: 0 25px;
     padding-left: 85px;
+    border-bottom: 2px solid palevioletred;;
+    font-size: 24px;
+    line-height: 94px;
 }
-
-
 /* 聊天主体 */
 .chat-content{
     overflow-y: auto;
     height: calc(100vh - 330px);
-    /* height: calc(100vh-94px-2px-40px-80px-60px-56px); */
-    padding: 40px 110px 80px 110px;
+    /* height: calc(100vh - 94px - 2px - 40px - 80px - 60px - 56px); */
+    padding:40px 110px 80px 110px;
 }
+
+
 /* 聊天框 */
 .chat-content-container{
-    width: 500px;
-    min-height: 100px;
-    margin-top: 20px;
+    width: 520px;
+    min-height: 125px;
+    margin-top: 30px;
 }
-
-/* 输入 */
-.chat-input-container{
-    width: 87%;
-    height: 53px;
-    text-align: center;
-    margin: 0 auto 40px auto;
-    position: relative;
-}
-
-.chat-input{
-    height: 100%;
-    width: calc(90%);
-    padding: 0 60px;
-    margin-left: 10px;
-    margin-right: 10px;
-    outline: none;
-    border-radius: 40px;
-    border: 1px solid  cadetblue;
-}
-.chat-input-smile{
-    position: absolute;
-    left: 10px;
-    top:0px;
-}
-
-
 /* 左侧用户信息 */
 .chat-detail-left{
-    float: left;
-    font-size: 14px;
+    float:left;
 }
-/* 头像 */
+/* 用户头像 */
 .chat-avatar{
     border-radius: 50%;
-    width: 40px;
-    height: 40px;
-}
-.chat-name{
     width: 60px;
-    color: #BDBDBD;
+    height: 60px;
+}
+/* 用户名 */
+.chat-name{
+    width:60px;
+    color:#BDBDBD;
     text-align: center;
 }
-/* 时间 */
+/* 聊天时间 */
 .chat-time{
-    color: #BDBDBD;
-    font-size: 10px;
+    color:#BDBDBD;
 }
-
-/* 右侧 */
-.chat-detail-right{
-    float: right;
-}
-
+/* 右侧聊天 */
 .chat-detail-right{
     float: right;
     text-align: left;
-    width: 360px;
-    min-height: 40px;
-    /* 内容超过一行 */
-    line-height: 40px;
+    width:320px;
+    min-height:60px;
+    line-height: 60px;
     border-radius: 40px;
-    padding: 0 40px;
-    background-color: darkgray;
+    padding:0 40px;
+    background-color:rgb(206, 245, 212);
+
     /* 换行 */
-    overflow: hidden;
-    overflow-wrap: break-word;
+    overflow:hidden;
+    overflow-wrap: break-word; 
+}
+/* input */
+/* 输入 */
+.chat-input-container{
+    width: 87%;
+    height: 60px;
+    text-align: center;
+    margin: 0 auto 56px auto;
+    position: relative;
+    border:4px dotted rgb(206, 245, 212);
+    border-radius: 10px;
 }
 
+.chat-input{
+    width: calc(100% - 160px);
+    height: 100%;
+    padding: 0 80px;
+    border: none;
+    /* line-height: 100%; */
+}
 
+.chat-input-smile{
+    position: absolute;
+    left:20px;
+    top:3px;
+}
