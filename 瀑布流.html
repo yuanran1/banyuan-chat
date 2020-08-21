@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>瀑布流</title>
+    <style>
+
+        *{
+            padding: 0;
+            margin: 0;
+        }
+
+        .item{
+            font-size: 30px;
+            font-weight: 700;
+            color: aliceblue;
+            margin-right: 15px;
+            margin-bottom: 15px;
+            width: 205px;
+            position: absolute;
+        }
+        .item-1{
+            background-color: antiquewhite;
+            height: 300px;
+        }
+        .item-2{
+            background-color: aquamarine;
+            height: 150px;
+        }
+        .item-3{
+            background-color:aqua;
+            height: 200px;
+        }
+        .item-4{
+            background-color:azure;
+            height: 250px;
+        }
+        .item-5{
+            background-color:bisque;
+            height: 270px;
+        }
+        .item-6{
+            background-color:rgb(177, 196, 197);
+            height: 300px;
+        }
+        .item-7{
+            background-color:cornflowerblue;
+            height: 320px;
+        }
+        .item-8{
+            background-color:darkkhaki;
+            height: 260px;
+        }
+        .item-9{
+            background-color:hotpink;
+            height: 260px;
+        }
+        .item-10{
+            background-color:rgb(248, 206, 250);
+            height: 300px;
+        }
+        .item-11{
+            background-color:yellow;
+            height: 310px;
+        }
+        .item-12{
+            background-color:teal;
+            height: 300px;
+        }
+        .item-13{
+            background-color:turquoise;
+            height: 270px;
+        }
+        .item-14{
+            background-color:yellowgreen;
+            height: 210px;
+        }
+        .item-15{
+            background-color: rgb(66, 214, 240);
+            height: 290px;
+        }
+        .item-16{
+            background-color:rgb(174, 198, 245);
+            height: 260px;
+        }
+        .item-17{
+            background-color:rgb(231, 160, 147);
+            height: 240px;
+        }
+        .item-18{
+            background-color:rgb(233, 228, 160);
+            height: 300px;
+        }
+        .item-19{
+            background-color:rgb(150, 100, 141);
+            height: 340px;
+        }
+        .item-20{
+            background-color:rgb(241, 218, 173);
+            height: 270px;
+        }
+        .item-21{
+            background-color:skyblue;
+            height: 330px;
+        }
+        .item-22{
+            background-color:rgb(157, 229, 193);
+            height: 240px;
+        }
+    </style>
+</head>
+<body>
+    <div id="box">
+        <div class="item item-1">1</div>
+        <div class="item item-2">2</div>
+        <div class="item item-3">3</div>
+        <div class="item item-4">4</div>
+        <div class="item item-5">5</div>
+        <div class="item item-6">6</div>
+        <div class="item item-7">7</div>
+        <div class="item item-8">8</div>
+        <div class="item item-9">9</div>
+        <div class="item item-10">10</div>
+        <div class="item item-11">11</div>
+        <div class="item item-12">12</div>
+        <div class="item item-13">13</div>
+        <div class="item item-14">14</div>
+        <div class="item item-15">15</div>
+        <div class="item item-16">16</div>
+        <div class="item item-17">17</div>
+        <div class="item item-18">18</div>
+        <div class="item item-19">19</div>
+        <div class="item item-20">20</div>
+        <div class="item item-21">21</div>
+        <div class="item item-22">22</div>
+    </div>
+</body>
+<script>
+
+    // 拿到所有的item
+    let items=document.getElementsByClassName('item');
+    // 定义间隙
+    let gap=20;
+
+    waterFall();
+
+    function waterFall(){
+        // 确定列数=页面宽度/图片宽度
+        let pageWidth=window.innerWidth;
+        let itemWidth=items[0].offsetWidth;
+        let columns=parseInt(pageWidth/(itemWidth+gap));
+        // 定义一个数组。用来存储元素的高度
+        let arr=[];
+        for(let i=0;i<items.length;i++){
+            if(i<columns){
+                // 满足这个条件说明在第一行
+                items[i].style.top=0;
+                items[i].style.left=(itemWidth+gap)*i+'px';
+                arr.push(items[i].offsetHeight);
+            }
+            else{
+                // 其他行，先找出最小高度列和它的索引
+                // 找出，现在页面中最小的高度
+                let minHeight=arr[0];
+                let index=0;
+                for(let j=0;j<arr.length;j++){
+                    // 找出最小高度
+                    if(minHeight>arr[j]){
+                        minHeight=arr[j];
+                        index=j;
+                    }
+                }
+                // let minHeight=Math.min(arr)
+                // 设置下一行的第一个盒子的位置
+                // top值 就是最小列的高度+gap
+                items[i].style.top=arr[index]+gap+'px';
+                items[i].style.left=items[index].offsetLeft+'px';
+
+                // 修改最小列的高度
+                // 最小列的高度=当前自身高度+拼接过来的高度+间隙的高度
+                arr[index]=arr[index]+items[i].offsetHeight+gap;
+            }
+        }
+    }
+    // 当 页面尺寸发生变化时，触发函数，实线响应式
+    window.onresize=function(){
+        waterFall();
+    }
+</script>
+</html>
