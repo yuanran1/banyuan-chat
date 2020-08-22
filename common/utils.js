@@ -23,7 +23,8 @@ function getRandomAvatar(){
  * 格式化时间
  */
 function formatTime(time){
-  return moment(time).format('YYYY-MM-Do aH:mm:ss')
+  // return moment(time).format('YYYY-MM-Do aH:mm:ss')
+  return moment(time).locale('zh_cn').format('YYYY-MM-Do aHH:mm:ss')
 }
 
 module.exports={

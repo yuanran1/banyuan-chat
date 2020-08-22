@@ -1,10 +1,11 @@
 let inputEle = document.getElementsByClassName('chat-input')[0]
 let timer
 let originDate
-
+getOriginData()
 stopTimer()
 longPolling()
 scrollToBottom()
+
 
 /* 当input按回车，发送信息 */
 inputEle.onkeydown = function (e) {
@@ -25,11 +26,26 @@ inputEle.onkeydown = function (e) {
             renderChat(result.contents)
             inputEle.value = ''
             scrollToBottom()
+            originData = result.contents
           }
         },
       })
     }
   }
+}
+
+
+function getOriginData(){
+
+  $.ajax({
+    type:'get',
+    url: 'http://localhost:3000/chat/getContent',
+    data:{},
+    success:(result)=>{
+      originData = result.contents
+    }
+  })
+  
 }
 
 /* 重新渲染  */
@@ -51,7 +67,6 @@ function renderChat(contents) {
   $('.chat-content').html('')
   //重新渲染
   $('.chat-content').html(html)
-  let originDate=contents
 }
 
 
@@ -63,18 +78,27 @@ function scrollToBottom() {
 
 
 /* 长轮询 */
-function longPolling() {
-  timer=setInterval(() => {
+function longPolling(){
+  timer=setInterval(()=>{
     $.ajax({
-      type: 'get',
-      url: 'http://localhost:3000/chat/getContent',
-      data: {},
-      success: (result ) => {
+      type:'get',
+      url:'http://localhost:3000/chat/getContent',
+      data:{},
+      success:(result)=>{
         renderChat(result.contents)
 
+        if(originData){
+          result.contents.filter((item)=>{
+            let flag  = moment(originData[originData.length-1].createdAt).isBefore(moment(item.createdAt))
+            if(flag){
+
+              alert('新消息提醒')
+            }
+          })
+        }
       }
     })
-  }, 2000)
+  }, 3000)
 }
 
 function stopTimer(){
@@ -82,3 +106,4 @@ function stopTimer(){
     clearInterval(timer )
   }
 }
+

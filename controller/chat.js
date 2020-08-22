@@ -75,7 +75,10 @@ async function addContent(ctx,next){
     // 获取最新聊天记录
     const contents=await services.getContent()
 
-    data={ status:'success',contents}
+    data ={
+      status:'success',
+      contents
+    }
 
   }
   ctx.response.body=data
